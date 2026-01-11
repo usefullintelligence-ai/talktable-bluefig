@@ -1,0 +1,7 @@
+{
+  "name": "Copy of ward",
+  "description": "A premium bilingual Voice AI concierge for Blue Fig Restaurant, featuring real-time interaction and a staff notification system.",
+  "requestFramePermissions": [
+    "microphone"
+  ]
+}
