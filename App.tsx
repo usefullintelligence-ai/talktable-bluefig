@@ -1,10 +1,10 @@
 
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef } from 'react';
 import { GoogleGenAI, LiveServerMessage, Modality, Type } from '@google/genai';
-import { AppState } from './types';
-import { SYSTEM_INSTRUCTION, NTFY_TOPIC, MENU_CATEGORIES } from './constants';
-import LunaOrb from './components/LunaOrb';
-import { createBlob, decode, decodeAudioData } from './services/audioUtils';
+import { AppState } from './types.ts';
+import { SYSTEM_INSTRUCTION, NTFY_TOPIC, MENU_CATEGORIES } from './constants.ts';
+import LunaOrb from './components/LunaOrb.tsx';
+import { createBlob, decode, decodeAudioData } from './services/audioUtils.ts';
 
 // --- Review Overlay Component ---
 const ReviewOverlay: React.FC<{
@@ -164,7 +164,6 @@ const MenuOverlay: React.FC<{
   );
 };
 
-// --- Main App Component ---
 const App: React.FC = () => {
   const [appState, setAppState] = useState<AppState>(AppState.IDLE);
   const [tableNumber, setTableNumber] = useState('');
@@ -230,9 +229,8 @@ const App: React.FC = () => {
       await audioContextInRef.current.resume();
       await audioContextOutRef.current.resume();
 
-      const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
+      const ai = new GoogleGenAI({ apiKey: process.env.API_KEY || '' });
       
-      // Advanced Noise Cancellation Constraints
       const stream = await navigator.mediaDevices.getUserMedia({ 
         audio: {
           echoCancellation: true,
@@ -371,7 +369,7 @@ const App: React.FC = () => {
       {/* Premium Navigation */}
       <nav className="p-8 md:px-16 md:py-10 flex items-center justify-between z-50">
         <div className="flex flex-col gap-1">
-          <span className="font-playfair text-3xl md:text-5xl font-bold text-[#1e3a8a] italic tracking-tight">BLUE FIG</span>
+          <span className="font-playfair text-3xl md:text-5xl font-bold text-[#1e3a8a] italic tracking-tight uppercase">BLUE FIG</span>
           <div className="flex items-center gap-3">
             <span className="h-[1px] w-8 bg-orange-600"></span>
             <span className="text-[10px] md:text-xs uppercase tracking-[0.4em] text-orange-600 font-black">Amman, Jordan</span>

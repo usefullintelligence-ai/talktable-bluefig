@@ -1,13 +1,11 @@
 
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { HashRouter, Routes, Route, Navigate } from 'react-router-dom';
 import App from './App';
 import WaiterDashboard from './WaiterDashboard';
 import Login from './Login';
 
-// Fixed: Made children optional in the type definition to resolve the TypeScript error on line 25 
-// where property 'children' was reported as missing in the component usage.
 const ProtectedRoute = ({ children }: { children?: React.ReactNode }) => {
   const isAuth = localStorage.getItem('alreem_auth') === 'true';
   return isAuth ? <>{children}</> : <Navigate to="/login" replace />;
@@ -27,6 +25,7 @@ const Root = () => {
             </ProtectedRoute>
           } 
         />
+        <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
     </HashRouter>
   );
